@@ -11,6 +11,6 @@ type this in the console:
 
 and then to run the script type this:
 
-###```sudo bash install.sh```
+### ```sudo bash install.sh```
 
 ## Disclaimer: Im not responsable of the damage of this script in other OS systems or modified versions, also Im not giving support for this at this moment
