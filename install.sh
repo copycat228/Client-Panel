@@ -3,19 +3,12 @@ clear
 echo "====================="
 echo "Dashactyl Installer"
 echo "====================="
-echo "By Sebastian Software & j0shh"
-echo "====================="
-echo "Note that this install"
-echo "Is just for ubuntu OS"
-echo ========================================
 
 install_options(){
     echo "Please select your installation option:"
-    echo "[1] Full Fresh Dashactyl Install (Dependercies, Files, Configuration)"
-    echo "[2] Install the Dependercies."
-    echo "[3] Install the Files."
-    echo "[4] Configure Settings."
-    echo "[5] Create and configure a reverse proxy."
+    echo "[1] Установить Client Panel"
+    echo "[2] Конфигурация сеттинга"
+    echo "[0] Создать Reverse Proxy"
     echo "========================================"
     read choice
     case $choice in
@@ -26,21 +19,12 @@ install_options(){
             reverseproxy_configuration
             ;;
         2 ) installoption=2
-            dependercy_install
-            ;;
-        3 ) installoption=3
-            file_install
-            ;;
-        4 ) installoption=4
             settings_configuration
             ;;
-        5 ) installoption=5
+        0 ) installoption=0
             reverseproxy_configuration
             ;;
-        6 ) installoption=6
-            update_check
-            ;;
-        * ) output "You did not enter a valid selection."
+        * ) output "Неверный вариант!"
             install_options
     esac
 }
@@ -49,11 +33,9 @@ dependercy_install() {
     echo "======================================================"
     echo "Starting Dependercy install."
     echo "======================================================"
-    sudo apt update
-    sudo apt upgrade
-    sudo apt-get install nodejs
-    sudo apt install npm
-    sudo apt-get install git
+    sudo apt update -y
+    sudo apt upgrade -y
+    sudo apt-get install nodejs npm git -y
     echo "======================================================"
     echo "Dependency Install Completed!"
     echo "======================================================"
@@ -63,8 +45,8 @@ file_install() {
     echo "Starting File download."
     echo "======================================================"
     cd /var/www/
-    sudo git clone https://github.com/Dashactyl-Development/Dashactyl/
-    cd dashactyl
+    sudo git clone https://github.com/Votion-Development/Dashactyl.git
+    cd Dashactyl
     sudo npm install
     sudo npm install forever -g
     echo "======================================================"
@@ -80,21 +62,21 @@ settings_configuration() {
     cd /var/www/dashactyl/
     file=settings.json
 
-    echo "What is the web port? [80] (This is the port Dashactyl will run on)"
+    echo "На каком порту запускать Client Panel? [80]"
     read WEBPORT
-    echo "What is the web secret? (This will be used for logins)"
+    echo "Какой установить Secret Key?"
     read WEB_SECRET
-    echo "What is the pterodactyl domain? [panel.yourdomain.com]"
+    echo "Домен панели управления"
     read PTERODACTYL_DOMAIN
-    echo "What is the pterodactyl key?"
+    echo "Secret key Панели управления"
     read PTERODACTYL_KEY
-    echo "What is the Discord Oauth2 ID?"
+    echo "Discord Oauth2 ID?"
     read DOAUTH_ID
-    echo "What is the Discord Oauth2 Secret?"
+    echo "Discord Oauth2 Secret?"
     read DOAUTH_SECRET
-    echo "What is the Discord Oauth2 Link?"
+    echo "Discord Oauth2 Link?"
     read DOAUTH_LINK
-    echo "What is the Callback path? [callback]" 
+    echo "Callback path?" 
     read DOAUTH_CALLBACKPATH
     echo "Prompt [TRUE/FALSE] (When set to true users wont have to relogin after a session)"
     read DOAUTH_PROMPT
